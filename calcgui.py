@@ -8,19 +8,11 @@ expression = ""
 big = {}  
 x = Symbol("x")  
 y = Symbol("y")
-# Function to update expressiom 
-# in the text entry box 
-def press(num): 
-    # point out the global expression variable 
+def press(num): #update expression in text box
     global expression 
-  
-    # concatenation of string 
     expression = expression + str(num) 
-  
-    # update the expression by using set method 
     equation.set(expression)  
-# Function to evaluate the final expression 
-def equalpress(): 
+def equalpress(): #evaluate final expression
     try:   
         global expression 
         total = str(eval(expression))  
@@ -43,35 +35,38 @@ def graph(formula):
 	y = eval(formula)
 	plt.plot(x, y)
 	plt.show()
+def integral(f, x):
+	z = integrate(f, x)
+	z = str(z)
+	string = ""
+	i = 0
+	while i < len(z):
+		if(i == 4 and z[i] == "2" and z[i+1] == "." and z[i+2] == "7" and 
+		z[i+3] == "1" and z[i+4] == "8"): #len 16
+			string += "e"
+			i += 16
+		else:
+			string += z[i]
+			i+=1
+	return string
+def defint(f, x, a, b):
+	return integrate(f, (x, a, b))
+def deriv(exp, x):
+	return diff(exp, x)
+def evaluate(formula, x):
+	return eval(str(formula))
+def intersection(one, two):
+	xcord = solve(one - two, x)[0]
+	ycord = evaluate(one, xcord)
+	return [xcord, ycord]
 if __name__ == "__main__": 
-    # create a GUI window 
     gui = Tk() 
-  
-    # set the background colour of GUI window 
-    #gui.configure(background="light green") 
-    gui.title("Scientific Calculator")   
-    # set the configuration of GUI window 
-    gui.geometry("335x325") 
-  
-    # StringVar() is the variable class 
-    # we create an instance of this class 
+    gui.title("Graphing Calculator")   
+    gui.geometry("335x335") 
     equation = StringVar() 
-  
-    # create the text entry box for 
-    # showing the expression . 
-    expression_field = Entry(gui, textvariable=equation) 
-  
-    # grid method is used for placing 
-    # the widgets at respective positions 
-    # in table like structure . 
-    expression_field.grid(columnspan=4, ipadx=70) 
-  
+    expression_field = Entry(gui, textvariable=equation) #text entry box 
+    expression_field.grid(columnspan=4, ipadx=70) #placing widgets in position
     equation.set('enter your expression') 
-  
-    # create a Buttons and place at a particular 
-    # location inside the root window . 
-    # when user press the button, the command or 
-    # function affiliated to that button is executed . 
     big['1'] = Button(gui, text=' 1 ', fg='black', bg='red', activebackground = 'blue',
                      command=lambda: press(1), height=1, width=7) 
     big['1'].grid(row=2, column=0)   
@@ -178,6 +173,18 @@ if __name__ == "__main__":
                    command=lambda: press("factorial("), height=1, width=7) 
     big['factorial'].grid(row=10, column=2) 
     big['Graph'] = Button(gui, text='Graph', fg='black', bg='red', activebackground = 'blue',
-                   command=lambda: press("y="), height=1, width=7) 
+                   command=lambda: press("graph("), height=1, width=7) 
     big['Graph'].grid(row=10, column=3) 
+    big['integral'] = Button(gui, text='integral(f,x)', fg='black', bg='red', activebackground = 'blue',
+                   command=lambda: press("integral("), height=1, width=7) 
+    big['integral'].grid(row=11, column=0) 
+    big['defint'] = Button(gui, text='def(f,x,a,b)', fg='black', bg='red', activebackground = 'blue',
+                   command=lambda: press("defint("), height=1, width=7) 
+    big['defint'].grid(row=11, column=1) 
+    big['deriv'] = Button(gui, text='deriv(f,x)', fg='black', bg='red', activebackground = 'blue',
+                   command=lambda: press("deriv("), height=1, width=7) 
+    big['deriv'].grid(row=11, column=2) 
+    big['intersect'] = Button(gui, text='intersect(f,g)', fg='black', bg='red', activebackground = 'blue',
+                   command=lambda: press("intersection("), height=1, width=7) 
+    big['intersect'].grid(row=11, column=3) 
     gui.mainloop()
