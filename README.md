@@ -24,3 +24,5 @@ In order to run this code, you will need to have these Python libraries installe
 Run the code using a command prompt. Note: The current program does not support voice recognition yet, so it works like a calculator emulator.
 ## Sample Output
 Current graphing calculator gui:
+
+![Test Image 1](Calcgui.png)
