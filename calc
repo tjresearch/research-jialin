@@ -1,2 +1,0 @@
-import math
-print(eval("math.log(8, 2)")
