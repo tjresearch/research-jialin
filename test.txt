@@ -1,0 +1,1 @@
+integrate left parentheses x to the power of two times e to the power of x times cosine of left parentheses x right parentheses comma x right parentheses

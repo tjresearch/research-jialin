@@ -4,6 +4,8 @@ from math import *
 from sympy import *
 import numpy as np
 import matplotlib.pyplot as plt
+from word2number import w2n
+from num2words import num2words
 expression = "" 
 big = {}  
 x = Symbol("x")  
@@ -40,8 +42,8 @@ def integral(f, x):
 	z = str(z)
 	string = ""
 	i = 0
-	while i < len(z):
-		if(i == 4 and z[i] == "2" and z[i+1] == "." and z[i+2] == "7" and 
+	while i < len(z)-4:
+		if(z[i] == "2" and z[i+1] == "." and z[i+2] == "7" and 
 		z[i+3] == "1" and z[i+4] == "8"): #len 16
 			string += "e"
 			i += 16
@@ -59,6 +61,119 @@ def intersection(one, two):
 	xcord = solve(one - two, x)[0]
 	ycord = evaluate(one, xcord)
 	return [xcord, ycord]
+file1 = open("test.txt","r+") 
+express = file1.read()
+arr=[]
+word = ""
+st= ""
+boo = True
+temp = ""
+realtemp = ""
+for world in express.split():
+	arr.append(world)
+for i in range(len(arr)):
+   if arr[i] == "plus":
+     word = "+"
+   elif arr[i] == "minus" or arr[i] == "negative":
+     word = "-"
+   elif arr[i] == "times":
+     word = "*"
+   elif arr[i] == "divided":
+     word = "/"
+   elif arr[i] == "point":
+     word = "."
+   elif arr[i] == "power":
+     word = "**"
+   elif arr[i] == "square": #math
+     word = "math.sqrt"
+   elif arr[i] == "absolute": #math
+     word = "math.fabs"
+   elif arr[i] == "factorial": #factorial left parentheses... #math
+     word = "math.factorial"
+   elif arr[i] == "perm":
+	   word = "perm"
+   elif arr[i] == "combo":
+	   word = "combo"
+   elif arr[i] == "integrate":
+	   word = "integral"
+   elif arr[i] == "definite":
+	   word = "defint"
+   elif arr[i] == "derivative":
+	   word = "deriv"
+   elif arr[i] == "differentiate": #not working
+	   word = "differ"
+   elif arr[i] == "log": #math
+     word = "math.log"
+   elif arr[i] == "cosine": #math
+     word = "cos"
+   elif arr[i] == "sine": #math
+     word = "sin"
+   elif arr[i] == "np.sine": #uhhhh
+     word = "np.sin"
+   elif arr[i] == "tangent": #math
+     word = "tan"
+   elif (arr[i] == "by" or arr[i] == "parentheses" or arr[i] == "root" or 
+   arr[i] == "of" or arr[i] == "value" or arr[i] == "to" or arr[i] == "the" or arr[i] == "base"):
+     word = ""
+   elif arr[i] == "left":
+     word = "("
+   elif arr[i] == "right":
+     word = ")"
+   elif arr[i] == "left-bracket":
+	   word = "["
+   elif arr[i] == "right-bracket":
+	   word = "]"
+   elif arr[i] == "comma":
+     word = ","
+   elif arr[i] == "pi": #math
+     word = "math.pi" 
+   elif arr[i] == "e": #math
+     word = "e"
+   elif arr[i] == "x":
+	   word = "x"
+   elif arr[i] == "var-stats":
+	   word = "varstats"
+   elif arr[i] == "matrix":
+	   word = "matrix"
+   elif arr[i] == "determinant":
+	   word = "det"
+   elif arr[i] == "reduced-row-echelon":
+	   word = "rref"
+   elif arr[i] == "linreg":
+	   word = "linreg"
+   elif arr[i] == "polynomial":
+	   word = "polyreg"
+   elif arr[i] == "exponential":
+	   word = "expreg"
+   elif arr[i] == "random":
+	   word = "rand"
+   elif arr[i] == "randint":
+	   word = "randint"
+   elif arr[i] == "fraction":
+	   word = "fract"
+   elif arr[i] == "graph":
+	   word = "graph"
+   elif arr[i] == "evaluate":
+	   word = "evaluate"
+   elif arr[i] == "intersection":
+	   word = "intersection"
+   elif arr[i] == "zeros":
+	   word = "zeros"
+   temp += arr[i] + " "
+   try:
+	   w2n.word_to_num(arr[i])
+	   realtemp = str(w2n.word_to_num(temp))
+	   boo = False
+   except:
+	   boo = True	
+	   temp = ""
+	   word = realtemp + word
+	   realtemp = ""
+   if(i == len(arr) - 1) and boo == False:
+	   word = realtemp
+	   boo = True
+   if boo == True:
+	   st += word
 if __name__ == "__main__": 
     gui = Tk() 
     gui.title("Graphing Calculator")   
@@ -187,4 +302,6 @@ if __name__ == "__main__":
     big['intersect'] = Button(gui, text='intersect(f,g)', fg='black', bg='red', activebackground = 'blue',
                    command=lambda: press("intersection("), height=1, width=7) 
     big['intersect'].grid(row=11, column=3) 
+    expression = st
+    equation.set(expression)
     gui.mainloop()
