@@ -25,4 +25,4 @@ Run the code using a command prompt. Note: The current program does not support 
 ## Sample Output
 Current graphing calculator gui:
 
-![Test Image 1](Calcgui.png)
+![Test Image 1](calcgui.png)
