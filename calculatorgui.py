@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 from word2number import w2n
 from num2words import num2words
 import speech_recognition as sr
-#from gtts import gTTS
-#import pyaudio
+from gtts import gTTS
+import pyaudio
 import time
 import threading
 from multiprocessing import Queue
@@ -73,8 +73,8 @@ class SpeechRecognizer(threading.Thread):
 				print(a)
 			except KeyboardInterrupt:
 				pass
-#recognizer = SpeechRecognizer()
-#recognizer.start()
+recognizer = SpeechRecognizer()
+recognizer.start()
 def press(num): #update expression in text box
 	global expression
 	expression = expression + str(num)
@@ -299,9 +299,9 @@ def numtoword(): #evaluate final expression
 	expression = ""
 	carry = ""
 	nocalc += 4
-	#myobj = gTTS(text=st, lang='en', slow=False)
-	#myobj.save("answer.wav")
-	#playsound('answer.wav')
+	myobj = gTTS(text=st, lang='en', slow=False)
+	myobj.save("answer.wav")
+	playsound('answer.wav')
 def clearall():
 	global expression
 	global nocalc
@@ -315,7 +315,7 @@ def bs():
 	global expression
 	expression_field.delete('%s - 2c' % 'end')
 	expression = expression[:-1]
-def graph(formula): #pack???
+def graph(formula):
 	formula = str(formula)
 	init = 0
 	start = -10
@@ -357,7 +357,7 @@ def det(mat):
 	return mat.det()
 def rref(mat):
 	return mat.rref()
-def varstats(arr): #numpy percentile more precise
+def varstats(arr):
 	df = pd.DataFrame(arr)
 	expression_field.insert(END, df)
 	most = 0
