@@ -28,7 +28,3 @@ In order to run this code, you will need to have these Python libraries installe
 2. Download the calculator.py source code and test.txt for the "Help" button
 ## Run Instructions
 Run the code using a command prompt. Note: You may have to repeat a command multiple times to obtain the desired output from speech recognition.
-## Sample Output
-Current graphing calculator gui:
-
-![Test Image 1](calcgui.png)
